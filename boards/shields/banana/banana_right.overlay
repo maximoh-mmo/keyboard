@@ -1,3 +1,15 @@
+#include "banana.dtsi"
+
 &default_transform { // Offset of 5 because the left side has 5 columns
     col-offset = <5>;
+};
+
+&kscan0 {
+    col-gpios
+        = <&promicro_nrf52840 15 GPIO_ACTIVE_HIGH>
+        , <&promicro_nrf52840 16 GPIO_ACTIVE_HIGH>
+        , <&promicro_nrf52840 17 GPIO_ACTIVE_HIGH>
+        , <&promicro_nrf52840 18 GPIO_ACTIVE_HIGH>
+        , <&promicro_nrf52840 19 GPIO_ACTIVE_HIGH>
+        ;
 };

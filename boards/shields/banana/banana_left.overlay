@@ -1,0 +1,11 @@
+#include "banana.dtsi"
+
+&kscan0 {
+    col-gpios
+        = <&promicro_nrf52840 10 GPIO_ACTIVE_HIGH>
+        , <&promicro_nrf52840 11 GPIO_ACTIVE_HIGH>
+        , <&promicro_nrf52840 12 GPIO_ACTIVE_HIGH>
+        , <&promicro_nrf52840 13 GPIO_ACTIVE_HIGH>
+        , <&promicro_nrf52840 14 GPIO_ACTIVE_HIGH>
+        ;
+};
