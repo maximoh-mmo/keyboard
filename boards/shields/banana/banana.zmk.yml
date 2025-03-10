@@ -4,9 +4,9 @@ name: Banana
 type: shield
 url: https://github.com/maximoh-mmo/zmk-config/
 requires:
-  - [nice-nano]
+  - nice-nano
 exposes:
-  - [i2c_oled]
+  - i2c_oled
 features:
   - keys
   - display
