@@ -1,40 +1,97 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#define SYM 1
+#define NAV 2
+#define FN 3
 
 / {
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
-			// Layer 0: Base keys
-			//
-			// ,-----.-----.-----.-----.-----.    ,-----.-----.-----.-----.-----.
-			// | Q   | W   | E   | R   | T   |    | Y   | U   | I   | O   | P   |
-			// |-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----|
-			// | A   | S   | D   | F   | G   |    | H   | J   | K   | L   | ' " | 
-			// |-----+-----+-----+-----+-----+    |-----+-----+-----+-----+-----|
-			// |SHF/Z| X   | C   | V   | B   |    | N   | M   | < , | > . |SHF/?|
-			// `-----'-----'-----'-----'-----'    `-----'-----'-----'-----'-----'
-			//        .-------.-------.-------.  .-------.-------.-------.   
-			//        |ALT/ESC|  WIN  |CTR/TAB|  | ENTER |L1/SPC |L2/BSP |
-			//        '-------'-------'-------'  '-------'-------'-------' 
-             bindings = <
-                &kp Q    &kp W    &kp E    &kp R    &kp T    &kp Y    &kp U    &kp I    &kp O    &kp P
-				&kp A    &kp S    &kp D    &kp F    &kp G    &kp H    &kp J    &kp K    &kp L    &kp APOSTROPHE
-                &kp Z    &kp X    &kp C    &kp V    &kp B    &kp N    &kp M     &kp
+            // Layer 0: Base keys
+            //
+            // ,-----.-----.-----.-----.-----.    ,-----.-----.-----.-----.-----.
+            // | Q   | W   | F   | P   | B   |    | J   | L   | U   | Y   | ;   |
+            // |-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----|
+            // | A   | R   | S   | T   | G   |    | M   | N   | E   | I   | O   |
+            // |-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----|
+            // | Z   | X   | C   | D   | V   |    | K   | H   | ,   | .   | /   |
+            // `-----'-----'-----'-----'-----'    `-----'-----'-----'-----'-----'
+            //        .-------.-------.-------.  .-------.-------.-------.   
+            //        | DEL   | ENTER | TAB   |  | BKSP  | SPACE | '     |
+            //        |       | NAV   | FN    |  |       | SYM   |       |
+            //        '-------'-------'-------'  '-------'-------'-------'
+            bindings = <
+                &kp Q       &kp W       &kp F       &kp P       &kp B           &kp J       &kp L       &kp U       &kp Y       &kp SEMI
+                &mt LCTRL A &mt LWIN R  &mt LALT S  &mt LSHFT T &kp G           &kp M       &mt RSHFT N &mt RALT E  &mt RWIN I  &mt RCTRL O
+                &kp Z       &kp X       &kp C       &kp D       &kp V           &kp K       &kp H       &kp COMMA   &kp DOT     &kp FSLH
+                            &kp DEL     &lt NAV ENTER &lt FN TAB                &kp BSPC    &lt SYM SPACE &kp SQT
             >;
-			// Layer 1: Symbols
-			// ,-----.-----.-----.-----.-----.    ,-----.-----.-----.-----.-----.
-			// | 1!  | 2@  | 3#  | 4$  | 5%  |    | 6^  | 7&  | 8*  | 9(  | 0)  |
-			// |-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----|
-			// | `~  |HOME |PGUP |PGDN | END |    |LEFT |DOWN | UP  |RGHT | ;:  |
-			// |-----+-----+-----+-----+-----+    |-----+-----+-----+-----+-----|
-			// |SHFT |     |     |     |     |    | -_  | =+  | [{  | ]}  |SHF\||
-			// `-----'-----'-----'-----'-----'    `-----'-----'-----'-----'-----'
-			//        .-------.-------.-------.      .-------.-------.-------.   
-			//        |       |       |       |      |       |(hold) |       |
-	        //        '-------'-------'-------'      '-------'-------'-------' 
-			//
+        };
+
+        sym_layer {
+            // Layer 1: Symbols
+            //
+            // ,-----.-----.-----.-----.-----.    ,-----.-----.-----.-----.-----.
+            // | !   | @   | #   | $   | %   |    | ^   | &   | *   | -   | =   |
+            // |-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----|
+            // | -   | [   | {   | (   | <   |    | >   | )   | }   | ]   | +   |
+            // |-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----|
+            // |CAPS | :   |C-S-T|C-WIN|     |    |     |C-WIN|C-TAB|     | \   |
+            // `-----'-----'-----'-----'-----'    `-----'-----'-----'-----'-----'
+            //        .-------.-------.-------.  .-------.-------.-------.   
+            //        |       |       |       |  |       |       |       |
+            //        '-------'-------'-------'  '-------'-------'-------'
+            bindings = <
+                &kp EXCL    &kp AT      &kp HASH    &kp DLLR    &kp PRCNT       &kp CARET   &kp AMPS    &kp ASTRK   &kp MINUS   &kp EQUAL   
+                &kp MINUS   &kp LBKT    &kp LBRC    &kp LPAR    &kp LT          &kp GT      &kp RPAR    &kp RBRC    &kp RBKT    &kp PLUS
+                &kp CAPS    &kp COLON   &kp LC(LS(TAB)) &kp LC(LWIN) &none      &none       &kp LC(WIN) &kp LC(TAB) &none       &kp BSLH
+                                        &trans      &trans      &trans          &trans      &trans      &trans
+            >;
+        };
+
+        nav_layer {
+            // Layer 2: Navigation
+            //
+            // ,-----.-----.-----.-----.-----.    ,-----.-----.-----.-----.-----.
+            // | ESC | PGUP| UP  | PGDN|     |    | *   | 7   | 8   | 9   | -   |
+            // |-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----|
+            // | HOME| LEFT| DOWN|RIGHT| END |    | /   | 4   | 5   | 6   | +   |
+            // |-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----|
+            // | ESC | PGUP| PGDN|C-WINL|C-WINR|  | =   | 1   | 2   | 3   | 0   |
+            // `-----'-----'-----'-----'-----'    `-----'-----'-----'-----'-----'
+            //        .-------.-------.-------.  .-------.-------.-------.   
+            //        |       |       |       |  |       |       |       |
+            //        '-------'-------'-------'  '-------'-------'-------'
+            bindings = <
+                &kp ESC     &kp PG_UP   &kp UP      &kp PG_DN   &none           &kp ASTRK   &kp N7      &kp N8      &kp N9      &kp MINUS
+                &kp HOME    &kp LEFT    &kp DOWN    &kp RIGHT   &kp END         &kp FSLH    &kp N4      &kp N5      &kp N6      &kp PLUS
+                &kp ESC     &kp PG_UP   &kp PG_DN   &kp LC(LWIN(LEFT)) &kp LC(LWIN(RIGHT)) &kp EQUAL &kp N1      &kp N2      &kp N3      &kp N0
+                            &trans      &trans      &trans                      &trans      &trans      &trans
+            >;
+        };
+
+        fn_layer {
+            // Layer 3: Function keys
+            //
+            // ,-----.-----.-----.-----.-----.    ,-----.-----.-----.-----.-----.
+            // |     |S-PUP| S-↑ |S-PDN|     |    | ▶   | F7  | F8  | F9  | F10 |
+            // |-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----|
+            // |S-HOM| S-← | S-↓ | S-→ |S-END|    | 🔇  | F4  | F5  | F6  | F11 |
+            // |-----+-----+-----+-----+-----|    |-----+-----+-----+-----+-----|
+            // |     |S-PUP|S-PDN|     |     |    | 🔇  | F1  | F2  | F3  | F12 |
+            // `-----'-----'-----'-----'-----'    `-----'-----'-----'-----'-----'
+            //        .-------.-------.-------.  .-------.-------.-------.   
+            //        |       |       |       |  |       |       |       |
+            //        '-------'-------'-------'  '-------'-------'-------'
+            bindings = <
+                &none        &kp LS(PG_UP) &kp LS(UP)    &kp LS(PG_DN) &none         &kp C_PP      &kp F7      &kp F8      &kp F9      &kp F10
+                &kp LS(HOME) &mt LS(LEFT)  &kp LS(DOWN)  &kp LS(RIGHT) &kp LS(END)   &kp C_VOL_UP  &kp F4      &kp F5      &kp F6      &kp F11
+                &none        &mt LS(PG_UP) &mt LS(PG_DN) &none         &none         &kp C_VOL_DN  &kp F1      &kp F2      &kp F3      &kp F12
+                             &trans        &trans        &trans                       &trans        &trans      &trans
+            >;
+        };
     };
 };
-
